@@ -67,9 +67,9 @@
 </p>
 
 <p align="center">
-  <strong>Research toolkit</strong> — <code>/x-read</code> · <code>/x-pulse</code> · <code>/research</code> · <code>/research-deep</code> · <code>/youtube</code><br/>
-  <em>Pull live X posts, web research with citations, and YouTube transcripts straight into your vault as AI-first notes. <br/>
-  Vault-first synthesis knows what you already know and fills only the gaps.</em>
+  <strong>Research toolkit</strong> — <code>/x-read</code> · <code>/x-pulse</code> · <code>/research</code> · <code>/research-deep</code> · <code>/notebooklm</code> · <code>/youtube</code><br/>
+  <em>Pull live X posts, web research with citations, YouTube transcripts, and NotebookLM source-grounded answers straight into your vault as AI-first notes. <br/>
+  Vault-first synthesis knows what you already know and fills only the gaps. The open-web track and the source-grounded track run in parallel.</em>
 </p>
 
 <p align="center">
@@ -293,7 +293,8 @@ Powered by xAI Grok (live X access) + Perplexity Sonar (web research) + YouTube.
 | `/x-read [url]` | Deep-read an X post — verbatim post + thread + TL;DR + claims + reply sentiment + voices |
 | `/x-pulse [topic]` | Scan X for what's trending — themes, voices, hooks, post ideas |
 | `/research [topic]` | Web research with citations — full dossier with recency markers and open questions |
-| `/research-deep [topic]` | Vault-first synthesis — scans your vault, finds gaps, fills them, propagates updates across people/projects/ideas |
+| `/research-deep [topic]` | Vault-first synthesis (open web) — scans your vault, finds gaps, fills them via Perplexity + Grok, propagates updates across people/projects/ideas |
+| `/notebooklm [topic]` | Vault-first synthesis (source-grounded) — bundles your vault notes into a NotebookLM source, you run NotebookLM grounded in your own sources, response saves back to the vault |
 | `/youtube [url]` | Extract transcript + metadata + top comments → AI-first summary |
 
 **Setup:** copy `.env.example` to `~/.config/obsidian-second-brain/.env`, add your keys (xAI, Perplexity, YouTube optional). Run `install.sh` and answer "y" to the research prompt to do this automatically.
