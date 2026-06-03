@@ -4,7 +4,7 @@ filters:
     - file.ext == "md"
     - note.type == "project"
 formulas:
-  status_icon: if(status == "active", "🟢", if(status == "stalled", "🟡", if(status == "planning", "⚪", if(status == "on-hold", "⏸️", if(status == "completed", "✅", if(status == "archived", "📦", "❔"))))))
+  status_icon: if(status == "active", "🟢", if(status == "blocked", "🔴", if(status == "stalled", "🟡", if(status == "idle", "💤", if(status == "planning", "⚪", if(status == "on-hold", "⏸️", if(status == "completed", "✅", if(status == "archived", "📦", "❔"))))))))
   days_since_update: if(updated, (today() - date(updated)).days, "")
 properties:
   formula.status_icon:

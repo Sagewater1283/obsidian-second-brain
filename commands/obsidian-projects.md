@@ -43,7 +43,7 @@ Spawn one subagent per project. Each agent runs three checks:
 
 Merge the three agent results into one status block per project:
 
-- **Status**: infer from activity recency: `active` (commits or vault update in last 7 days), `stalled` (7-30 days), `idle` (30+ days), `blocked` (explicit blocker found). Override with the note's `status:` field if it says `archived` or `paused`.
+- **Status**: infer from activity recency: `active` (commits or vault update in last 7 days), `stalled` (7-30 days), `idle` (30+ days), `blocked` (explicit blocker found). Override with the note's `status:` field if it says `on-hold`, `completed`, or `archived`.
 - **Last session**: what was worked on and when. Prefer git commit dates + messages over vault dates.
 - **Next action**: single most concrete next step. Pull from vault open questions or docs TODO. If unclear, say so - do not invent one.
 - **Blocked by**: anything explicitly blocking. `none` if nothing found.
