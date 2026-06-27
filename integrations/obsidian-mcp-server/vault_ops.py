@@ -21,8 +21,10 @@ _VAULT_ENV = "OBSIDIAN_VAULT_PATH"
 # Notes added via the connector land here, separate from hand-authored notes.
 _NOTES_DIR = "Inbox"
 
-# Never scanned during search (config, vcs, immutable sources, exports).
-_SKIP_DIRS = {".obsidian", ".git", ".trash", "_export", "templates"}
+# Never scanned during search (config, vcs, immutable sources, exports). `.claude`
+# is a vault-local agent config dir (CLAUDE.md, commands, settings) - its markdown
+# is not vault content and would inflate every result (see issue #80).
+_SKIP_DIRS = {".obsidian", ".git", ".trash", ".claude", "_export", "templates"}
 
 # Bounds keep search fast and reads safe.
 _MAX_FILES_SCANNED = 2000

@@ -311,6 +311,24 @@ def test_mcp_vault_ops_validate_and_backlinks_and_health(tmp_path, monkeypatch):
     assert any(b["link"] == "Ghost Note" for b in health["broken_links"]["sample"])
 
 
+def test_mcp_vault_ops_skips_claude_dir(tmp_path, monkeypatch):
+    """The MCP connector must not scan a vault-local .claude/ config dir as notes
+    (issue #80). search and vault_health should ignore it entirely."""
+    vault_ops = _load_vault_ops()
+    vault = tmp_path / "vault"
+    (vault / "wiki").mkdir(parents=True)
+    (vault / ".claude" / "commands").mkdir(parents=True)
+    monkeypatch.setenv("OBSIDIAN_VAULT_PATH", str(vault))
+    (vault / "wiki" / "Real.md").write_text("---\ntype: note\n---\nwidget content\n", encoding="utf-8")
+    (vault / ".claude" / "CLAUDE.md").write_text("widget config\n", encoding="utf-8")
+    (vault / ".claude" / "commands" / "save.md").write_text("widget command\n", encoding="utf-8")
+
+    hits = {h["path"] for h in vault_ops.search("widget", limit=10)}
+    assert "wiki/Real.md" in hits
+    assert not any(p.startswith(".claude") for p in hits)
+    assert vault_ops.vault_health()["notes_scanned"] == 1
+
+
 def test_architect_scan_emits_manifest(tmp_path):
     """architect_scan.py must produce a JSON manifest with the expected shape
     on a minimal project (no network, no install)."""

@@ -33,7 +33,7 @@ import yaml
 
 FM_RE = re.compile(r"^---\n(.*?)\n---\n?(.*)$", re.DOTALL)
 WIKILINK_RE = re.compile(r"(!?)\[\[([^\]]+)\]\]")
-SKIP_DIRS = {".obsidian", "_export", ".git", ".trash", "templates", "Excalidraw"}
+SKIP_DIRS = {".obsidian", "_export", ".git", ".trash", ".claude", "templates", "Excalidraw"}
 # frontmatter fields that point at a real external asset -> OKF `resource`
 RESOURCE_KEYS = ("resource", "url", "source_url", "post-url", "post_url", "repo", "linkedin")
 
