@@ -106,7 +106,7 @@ See `references/vault-schema.md` for full structural details.
 ## Core Operating Principles
 
 ### AI-first vault rule (applies to every note)
-The vault is designed for **future-Claude** to read and reason over, not for human review. Every note Claude writes - across all 47 commands - must follow `references/ai-first-rules.md`:
+The vault is designed for **future-Claude** to read and reason over, not for human review. Every note Claude writes - across all 48 commands - must follow `references/ai-first-rules.md`:
 
 1. **Self-contained context** - each note explains itself; don't rely on backlinks alone
 2. **"For future Claude" preamble** - 2-3 sentence summary so Claude can decide relevance in 10 seconds
@@ -628,6 +628,14 @@ Steps:
 6. For safe fixes (missing frontmatter, obvious duplicates, creating pages for concept gaps), offer to fix them automatically
 7. For destructive fixes (archiving, merging, resolving contradictions), list them and ask for explicit confirmation before touching anything
 8. Append to `log.md` with severity counts
+
+---
+
+### `/obsidian-retrieval-eval [optional: N to generate | report]`
+
+**Measures how well vault search actually finds the right note - so improving retrieval is a number, not a hunch.**
+
+Hybrid command backed by `scripts/eval/retrieval_eval.py`, which reuses the REAL search engine (`integrations/obsidian-mcp-server/vault_ops.py`, the term-frequency, title-weighted ranking behind `/obsidian-find` and the MCP connector). It bootstraps its own eval set from the vault (an LLM writes a question per sampled note, avoiding the note's title words so it tests retrieval not string-match; the note is the gold answer), then scores recall@1/3/5/10 and MRR and lists the failures - misses and notes buried below #3, naming which note wrongly ranked #1. Claude interprets the numbers, turns failures into ranked retrieval fixes (each a hypothesis to re-measure on the same cases), and optionally writes an AI-first baseline note. Generated cases hold private note paths and are gitignored. The first run on a 1,000+ note vault scored **0% recall@10** on paraphrased questions (long `raw/` transcripts and `log.md` dominate term-frequency ranking) - proving the cheap structural fixes (exclude `raw/`, weight by `type:`) should be measured before reaching for a vector index.
 
 ---
 

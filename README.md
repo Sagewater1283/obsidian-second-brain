@@ -278,6 +278,7 @@ Free transcript via youtube-transcript-api. Optional metadata + top comments via
 | `/obsidian-project` | Project note with board and daily links |
 | `/obsidian-projects` | Live project status from git + local docs -- infers all context from vault notes, no config required |
 | `/obsidian-health` | Vault audit -- contradictions, gaps, stale claims, orphans |
+| `/obsidian-retrieval-eval` | Measures vault search quality -- recall@k + MRR on natural-language questions, with the concrete failures and ranked fixes |
 | `/obsidian-adr` | Decision records -- the vault knows why it's structured this way |
 | `/obsidian-visualize` | Generates a visual canvas map of your second brain |
 | `/obsidian-learn` | Reviews vault learnings, prunes stale ones, surfaces patterns to promote into rules |
