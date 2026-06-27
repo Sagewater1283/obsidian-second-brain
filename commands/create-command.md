@@ -12,6 +12,16 @@ This command runs a short interview, then writes a new `commands/<name>.md` file
 
 The optional argument is a free-text seed describing what the command should do (e.g., `summarize my notion pages and save to vault`). If given, use it to pre-fill suggestions in the interview. If empty, the first question opens with "what problem do you want to solve?".
 
+### Fast path (skip the interview when the seed already answers it)
+
+If the seed argument is detailed enough to fill every field yourself - the intent is clear AND you can confidently derive a name, category, trigger phrases, the step outline, and whether it writes to the vault - do NOT run the six-question interview. Instead:
+
+1. Draft the complete spec (name, category, triggers, 3-5 steps, vault-write yes/no) from the seed.
+2. Present it in ONE `AskUserQuestion` call as a single confirm-or-adjust gate: option A "Create it as specced" (show the name + one-line behaviour), option B "Let me adjust" (falls back to the full interview). Include the proposed name in the option label so the user sees it.
+3. On "Create it as specced", validate the name (Phase 2 checks: regex `^[a-z][a-z0-9-]*$`, and `commands/<name>.md` does not already exist), then jump straight to Phase 8 (generate the file) and Phase 9 (confirm).
+
+Only the truly under-specified seeds need the full interview. A seed like "summarize my notion pages and save to vault as AI-first notes, call it obsidian-notion, research category" is enough to fast-path. When in doubt, run the interview - one confirmation is fine, but never invent behaviour the seed did not state (see the anti-fabrication rule).
+
 ---
 
 ## Phase 1 - Intent
