@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  <strong>One codebase. Four CLIs. Same brain.</strong>
+  <strong>One codebase. Six CLIs. Same brain.</strong>
 </p>
 
 <p align="center">
@@ -247,7 +247,7 @@ Free transcript via youtube-transcript-api. Optional metadata + top comments via
 
 ---
 
-## 45 Commands
+## 44 Commands
 
 ### Operations -- Claude remembers
 

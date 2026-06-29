@@ -8,10 +8,10 @@ Last reviewed against commit `ff0319c` (2026-06-05).
 
 ## System overview
 
-obsidian-second-brain is a cross-CLI **skill** (not a plugin, not a hosted service) that turns any Obsidian vault into an AI-first second brain. One platform-neutral command source compiles to four AI CLIs - Claude Code, Codex CLI, Gemini CLI, OpenCode - through a build-time adapter pattern. At runtime a slash command reads and writes the user's vault as plain markdown; commands shell out to Python helpers for anything deterministic (vault health, research fetches, codebase scans).
+obsidian-second-brain is a cross-CLI **skill** (not a plugin, not a hosted service) that turns any Obsidian vault into an AI-first second brain. One platform-neutral command source compiles to six AI CLIs - Claude Code, Codex CLI, Gemini CLI, OpenCode, Hermes, Pi - through a build-time adapter pattern. At runtime a slash command reads and writes the user's vault as plain markdown; commands shell out to Python helpers for anything deterministic (vault health, research fetches, codebase scans).
 
 - **44 commands**, grouped by `category:` frontmatter: vault 16, thinking 13, research 8, meta 7.
-- **40 commands are cross-platform.** The 4 Google Calendar commands (`/obsidian-agenda`, `/obsidian-calendar`, `/obsidian-meeting`, `/obsidian-schedule`) carry `exclude: [codex-cli, gemini-cli, opencode]` and ship Claude Code only, because they depend on the Google Calendar MCP.
+- **43 commands are cross-platform.** Only `/obsidian-calendar` carries `exclude: [codex-cli, gemini-cli, opencode, hermes]` because it depends on the Google Calendar MCP, so it ships on Claude Code and Pi only. The Codex / Gemini / OpenCode / Hermes builds ship 43.
 - A research toolkit that is key-less by default (free public sources) and uses Grok + Perplexity + Gemini when keys are present.
 - An opt-in background agent plus optional user-scheduled agents.
 - MIT licensed.
@@ -22,11 +22,11 @@ The AI-first vault rule ties it all together: every note a command writes is des
 
 ## The adapter pattern (the core idea)
 
-`commands/` is the single source of truth. The build compiles it per platform instead of maintaining four command sets.
+`commands/` is the single source of truth. The build compiles it per platform instead of maintaining six command sets.
 
 - `commands/<name>.md` uses Claude Code's slash-command shape and declares `description:`, `category:`, `triggers_en:`, and optional `exclude:` frontmatter.
 - `scripts/build.sh` orchestrates the `adapters/` layer. `bash scripts/build.sh` builds all platforms; `--platform <name>` builds one.
-- The **Claude Code adapter is an identity copy**. The other three adapters emit a dispatcher file at the dist root (`AGENTS.md` or `GEMINI.md`) with an auto-generated routing table built from each command's `description:`, grouped by `category:` then language, plus the command bodies under `.codex/commands/` (or `.gemini/`, `.opencode/`).
+- The **Claude Code adapter is an identity copy**. The other five adapters (Codex CLI, Gemini CLI, OpenCode, Hermes, Pi) emit a dispatcher file at the dist root (`AGENTS.md`, `GEMINI.md`, or the Pi/Hermes equivalent) with an auto-generated routing table built from each command's `description:`, grouped by `category:` then language, plus the command bodies under `.codex/commands/` (or `.gemini/`, `.opencode/`, `.pi/`, Hermes skills).
 - Claude-specific wording is neutralized for the other CLIs (for example `Read tool` becomes `read files`).
 - Output lands in `dist/<platform>/`, which is gitignored and regenerated - never hand-edited.
 
@@ -38,7 +38,7 @@ The AI-first vault rule ties it all together: every note a command writes is des
 
 | Path | Role |
 |---|---|
-| `commands/` | 45 slash-command definitions, one `.md` each. The platform-neutral source and the product surface. |
+| `commands/` | 44 slash-command definitions, one `.md` each. The platform-neutral source and the product surface. |
 | `references/` | Shared specs the commands link to. `ai-first-rules.md` is the canonical, non-negotiable vault-write spec. |
 | `scripts/` | Python and Shell engine: build orchestrator, vault tooling, research toolkit, codebase scanner. |
 | `adapters/` | Platform translation layer. `lib.sh` plus one `adapter.sh` per CLI. |
@@ -53,10 +53,10 @@ The AI-first vault rule ties it all together: every note a command writes is des
 
 ```
 obsidian-second-brain/
-|-- commands/            # 45 command .md files (the source)
+|-- commands/            # 44 command .md files (the source)
 |-- references/          # ai-first-rules.md (canonical) + schemas + templates + bases/
 |-- scripts/             # build.sh, lib.sh, vault tooling, research/, architect_scan.py, ...
-|-- adapters/            # lib.sh + {claude-code,codex-cli,gemini-cli,opencode}/adapter.sh
+|-- adapters/            # lib.sh + {claude-code,codex-cli,gemini-cli,opencode,hermes,pi}/adapter.sh
 |-- hooks/               # validate-ai-first.sh, load_vault_context.py, obsidian-bg-agent.sh
 |-- dist/                # build output per platform (gitignored)
 |-- tests/               # smoke tests + CI fixtures
@@ -73,7 +73,7 @@ graph TD
   REF["references/<br/>specs (ai-first-rules.md = canonical)"]
   CMD["commands/<br/>44 .md, platform-neutral source"]
   SCR["scripts/<br/>engine + research toolkit + build.sh"]
-  ADP["adapters/<br/>lib.sh + 4 platform adapters"]
+  ADP["adapters/<br/>lib.sh + 6 platform adapters"]
   HK["hooks/<br/>validate-ai-first, context loader, bg-agent"]
   DIST["dist/&lt;platform&gt;/<br/>build output (gitignored)"]
   VAULT["User's Obsidian vault<br/>(AI-first markdown notes)"]
@@ -91,27 +91,27 @@ graph TD
 
 ## Command categories
 
-Commands are grouped by `category:` frontmatter, not by folder. Counts are at commit `ff0319c`. Commands marked `(Claude Code only)` are excluded from the Codex / Gemini / OpenCode builds.
+Commands are grouped by `category:` frontmatter, not by folder. Counts reflect the current `commands/` source. `/obsidian-calendar` is excluded from the Codex / Gemini / OpenCode / Hermes builds (it needs the Google Calendar MCP), so it ships on Claude Code and Pi only.
 
-### Vault (17)
+### Vault (16)
 Vault management: saving, organizing, searching, scheduling, maintaining.
 
-`/obsidian-save` `/obsidian-daily` `/obsidian-log` `/obsidian-task` `/obsidian-person` `/obsidian-capture` `/obsidian-find` `/obsidian-recap` `/obsidian-board` `/obsidian-project` `/obsidian-projects` `/obsidian-recurring` `/obsidian-world` `/obsidian-agenda` (Claude Code only) `/obsidian-calendar` (Claude Code only) `/obsidian-meeting` (Claude Code only) `/obsidian-schedule` (Claude Code only)
+`/obsidian-save` `/obsidian-daily` `/obsidian-log` `/obsidian-task` `/obsidian-person` `/obsidian-capture` `/obsidian-catchup` `/obsidian-find` `/obsidian-recap` `/obsidian-board` `/obsidian-board-hygiene` `/obsidian-project` `/obsidian-projects` `/obsidian-recurring` `/obsidian-world` `/obsidian-calendar` (Claude Code + Pi only)
 
 ### Thinking (13)
 Use vault history to generate insight, challenge assumptions, surface patterns, and record decisions.
 
-`/obsidian-challenge` `/obsidian-emerge` `/obsidian-connect` `/obsidian-graduate` `/obsidian-decide` `/obsidian-adr` `/obsidian-reconcile` `/obsidian-review` `/obsidian-synthesize` `/obsidian-learn` `/obsidian-panel` `/idea-discovery` `/vault-deep-synthesis`
+`/obsidian-challenge` `/obsidian-emerge` `/obsidian-connect` `/obsidian-graduate` `/obsidian-decide` `/obsidian-distill` `/obsidian-reconcile` `/obsidian-review` `/obsidian-synthesize` `/obsidian-learn` `/obsidian-panel` `/idea-discovery` `/vault-deep-synthesis`
 
 ### Research (8)
 AI-powered research and ingestion; findings save to the vault following the AI-first rule.
 
 `/research` `/research-deep` `/notebooklm` `/x-read` `/x-pulse` `/youtube` `/podcast` `/obsidian-ingest`
 
-### Meta (6)
+### Meta (7)
 Bootstrap, audit, export, visualize, document, and extend the system itself.
 
-`/obsidian-init` `/obsidian-health` `/obsidian-export` `/obsidian-visualize` `/obsidian-architect` `/create-command`
+`/obsidian-init` `/obsidian-health` `/obsidian-export` `/obsidian-visualize` `/obsidian-retrieval-eval` `/obsidian-architect` `/create-command`
 
 ---
 
