@@ -83,7 +83,8 @@ if rg -n -F 'For future Claude' \
   adapters/codex-cli/adapter.sh commands references/ai-first-rules.md \
   references/claude-md-template.md scripts hooks/validate-ai-first.sh \
   hooks/validate-ai-first.hook.yaml \
-  --glob '*.md' --glob '*.sh' --glob '*.yaml' --glob '*.py'; then
+  --glob '*.md' --glob '*.sh' --glob '*.yaml' --glob '*.py' \
+  --glob '!update-second-brain.sh'; then
   fail 'The upstream update reintroduced the legacy phrase in active Codex sources. Review the merge before installing.'
 fi
 
