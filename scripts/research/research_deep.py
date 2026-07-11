@@ -111,7 +111,7 @@ def parse_queries(gap_text: str) -> list[tuple[str, str]]:
     return queries[:5]
 
 
-SYNTHESIS_PROMPT = """You are synthesizing a vault-first research delta for a personal knowledge vault. Future-Claude will read this note years from now to answer the user's questions, so be specific, structured, and cite everything.
+SYNTHESIS_PROMPT = """You are synthesizing a vault-first research delta for a personal knowledge vault. Future agents will read this note years from now to answer the user's questions, so be specific, structured, and cite everything.
 
 TOPIC: "{topic}"
 TODAY: {today}
@@ -295,7 +295,7 @@ def run_paid_deep(topic: str) -> int:
     # AI-first note save (Phase 5)
     now = datetime.now()
     preamble = (
-        f"For future Claude: This is a vault-first deep research delta on \"{topic}\" "
+        f"For future agents: This is a vault-first deep research delta on \"{topic}\" "
         f"performed on {now.strftime('%Y-%m-%d %H:%M')}. The vault was scanned first ({len(hits)} relevant notes), "
         f"gaps were identified, and {len(queries)} targeted queries filled them via Perplexity (web) + Grok (X). "
         f"This note focuses on WHAT'S NEW vs the vault's prior knowledge, contradictions to resolve, and recommended updates. "
@@ -313,7 +313,7 @@ def run_paid_deep(topic: str) -> int:
         "ai-first": True,
     }
     note_body = (
-        f"## For future Claude\n\n{preamble}\n\n"
+        f"## For future agents\n\n{preamble}\n\n"
         f"## Topic\n\n{topic}\n\n"
         f"## Vault Baseline Found\n\n"
         + ("\n".join(f"- [[{h['path']}]] (score={h['score']})" for h in hits) if hits else "(none)")

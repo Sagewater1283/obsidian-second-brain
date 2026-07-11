@@ -1,6 +1,6 @@
 # AI-First Note Rules
 
-The vault is designed for **future-Claude** to read and reason over, not for human review. The owner rarely opens notes directly - they call Claude to retrieve, synthesize, and connect dots across years of accumulated knowledge. **Every command that writes to the vault must produce notes that follow these rules.**
+The vault is designed for **future agents** to read and reason over, not for human review. The owner rarely opens notes directly - they call Claude to retrieve, synthesize, and connect dots across years of accumulated knowledge. **Every command that writes to the vault must produce notes that follow these rules.**
 
 This document is the canonical specification. It lives at `references/ai-first-rules.md` in the obsidian-second-brain repo and is referenced from `_CLAUDE.md` Section 0, every slash command, and `references/write-rules.md`.
 
@@ -9,13 +9,13 @@ This document is the canonical specification. It lives at `references/ai-first-r
 ## The 7 Rules
 
 ### 1. Self-contained context
-Each note must explain itself. Future-Claude may pull this single note via `/obsidian-find` or vault scan with no surrounding context. Don't rely on backlinks alone for meaning. State the *what*, the *why*, and the *when* inside the note itself.
+Each note must explain itself. Future agents may pull this single note via `/obsidian-find` or vault scan with no surrounding context. Don't rely on backlinks alone for meaning. State the *what*, the *why*, and the *when* inside the note itself.
 
-### 2. "For future Claude" preamble
-Every note begins with a 2-3 sentence summary in plain English under a `## For future Claude` header (immediately after the frontmatter). Future-Claude reads this to decide relevance in 10 seconds before parsing the rest. State what's in the note, why it was saved, and any temporal/staleness caveat.
+### 2. "For future agents" preamble
+Every note begins with a 2-3 sentence summary in plain English under a `## For future agents` header (immediately after the frontmatter). Future agents read this to decide relevance in 10 seconds before parsing the rest. State what's in the note, why it was saved, and any temporal/staleness caveat.
 
 ```markdown
-## For future Claude
+## For future agents
 This note is a [type] about [topic] saved on [date]. It [main purpose].
 [Optional caveat about staleness, confidence, or scope.]
 ```
@@ -41,13 +41,13 @@ When stating external facts, attach the date inline:
 - Anthropic released native memory tool (as of 2026-02, anthropic.com/news/memory)
 ```
 
-So future-Claude knows what to verify before trusting individual facts.
+So future agents know what to verify before trusting individual facts.
 
 ### 5. Sources preserved verbatim
 Every external claim has its source URL inline. Don't paraphrase a citation - keep the actual URL so the claim can be re-verified or refreshed years later.
 
 ### 6. Cross-links are mandatory
-Every person, project, idea, decision, or concept referenced uses `[[wikilinks]]` so the graph is traversable by future-Claude:
+Every person, project, idea, decision, or concept referenced uses `[[wikilinks]]` so the graph is traversable by future agents:
 
 ```markdown
 Sarah at [[People/Sarah Chen]] decided to ship the [[Projects/Dashboard Refactor]] by Friday.
@@ -314,74 +314,74 @@ ai-first: true
 
 ### Daily note
 ```markdown
-## For future Claude
+## For future agents
 Daily note for YYYY-MM-DD. Captures what was worked on, who was met, decisions made, and energy/mood for the day. Skim the section headers; specific work logs link to dev logs and project notes.
 ```
 
 ### Project note
 ```markdown
-## For future Claude
+## For future agents
 [Project name] is a [type — work / personal / open-source] project with status [status] as of [date]. The Overview section explains what it is and why it exists. Recent Activity captures the last 30 days. Key Decisions documents major directional choices with rationale.
 ```
 
 ### Person note
 ```markdown
-## For future Claude
+## For future agents
 [Name] is [role] at [[Company]]. Relationship strength: [weak/medium/strong] as of [date]. Last interaction: [date]. The Recent Interactions section logs every conversation chronologically.
 ```
 
 ### Idea note
 ```markdown
-## For future Claude
+## For future agents
 Idea captured on [date] about [topic]. Status: [captured/exploring/graduated/shelved]. The body explains the idea, why it's interesting, and what would make it real. If shelved, the reason is documented at the bottom.
 ```
 
 ### Decision (standalone)
 ```markdown
-## For future Claude
+## For future agents
 Decision made on [date] about [topic]. Context section explains what prompted it. Options Considered lists the alternatives evaluated. Rationale captures why this option won. Consequences documents what changed in the vault as a result.
 ```
 
 ### Dev log
 ```markdown
-## For future Claude
+## For future agents
 Dev log for [date] about [project]. Captures work done, problems encountered, decisions made, and next steps. Specific file paths and commit hashes are preserved verbatim for re-verification.
 ```
 
 ### Review (weekly / monthly)
 ```markdown
-## For future Claude
+## For future agents
 [Weekly / Monthly] review covering [period-start] through [period-end]. The review summarizes shipped work, decisions made, people met, and patterns that emerged. Use this as a baseline when researching what was true at the end of the period.
 ```
 
 ### Research (any research type)
 ```markdown
-## For future Claude
+## For future agents
 [Research type] on "[topic]" performed on [datetime]. [Specific scope: what was searched, how many sources, what model.] [Caveat about recency or confidence.] Use the recency markers per claim to know what to verify before relying on individual facts.
 ```
 
 ### ADR
 ```markdown
-## For future Claude
-Architectural decision record from [date]. Documents a structural decision in the vault (folder rename, schema change, etc.) so future-Claude can answer "why is the vault structured this way?" without re-deriving the reasoning.
+## For future agents
+Architectural decision record from [date]. Documents a structural decision in the vault (folder rename, schema change, etc.) so future agents can answer "why is the vault structured this way?" without re-deriving the reasoning.
 ```
 
 ---
 
 ## Common Anti-Patterns
 
-Don't do these. They produce notes that are useless to future-Claude.
+Don't do these. They produce notes that are useless to future agents.
 
 | Anti-pattern | Why it's bad |
 |---|---|
 | `date: today` | Use the actual `YYYY-MM-DD` - "today" is meaningless when read later |
 | Bare claims without dates | "Mem0 is the leader" - leader as of when? |
 | External URL omitted | "According to a study, X is true" - which study? |
-| Plain text names instead of `[[wikilinks]]` | Breaks the link graph - future-Claude can't traverse |
-| "See above" / "as mentioned" | Future-Claude may pull this note in isolation. Repeat the context. |
+| Plain text names instead of `[[wikilinks]]` | Breaks the link graph - future agents can't traverse |
+| "See above" / "as mentioned" | Future agents may pull this note in isolation. Repeat the context. |
 | Trusting the model to infer | Be explicit. State the type, the rule applied, the source. |
 | Multi-paragraph human-readable narratives | Bullets and structure beat prose for retrieval. |
-| Forgetting `ai-first: true` | The flag lets future-Claude know which notes meet the standard. |
+| Forgetting `ai-first: true` | The flag lets future agents know which notes meet the standard. |
 | Em-dash (`—`), curly quotes (`"`), Unicode math (`≥ ≤ ≠`) | Substitution Unicode slips in silently via LLM defaults. Caught by `validate-ai-first.sh` check 5. Use ` - ` for dashes, straight `"` quotes, ASCII operators (`>=`, `!=`). Allowed: box-drawing (`─`), arrows (`→ ←`), currency (`€ £ ¥`), Nerd Font codepoints - all carry semantic meaning. |
 
 ---
@@ -390,7 +390,7 @@ Don't do these. They produce notes that are useless to future-Claude.
 
 When auditing an existing note (Phase 2 work or one-off cleanup), verify:
 
-- [ ] Has `## For future Claude` preamble below frontmatter
+- [ ] Has `## For future agents` preamble below frontmatter
 - [ ] `ai-first: true` in frontmatter
 - [ ] `type:` field set correctly
 - [ ] `date:` in YYYY-MM-DD format

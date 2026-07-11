@@ -7,7 +7,7 @@ triggers_es: ["documenta este código", "analiza la arquitectura de este proyect
 
 Use the obsidian-second-brain skill. Execute `/obsidian-architect [path-to-codebase]`:
 
-Turns a software project into a maintained set of architecture notes in the vault, so future-you (and future-Claude) can answer "how does this project work and why" without re-reading the code. Re-running refreshes the notes in place.
+Turns a software project into a maintained set of architecture notes in the vault, so future-you (and future agents) can answer "how does this project work and why" without re-reading the code. Re-running refreshes the notes in place.
 
 This is a hybrid command: a deterministic Python scan produces the facts, then YOU synthesize the prose, rationale, and diagram. Never invent structure the scan did not find (see the anti-fabrication rule).
 
@@ -45,6 +45,6 @@ This is a hybrid command: a deterministic Python scan produces the facts, then Y
 
 ---
 
-**AI-first rule:** Every note created or updated by this command MUST follow `references/ai-first-rules.md` - `## For future Claude` preamble, rich frontmatter (`type`, `date`, `tags`, `ai-first: true`, plus type-specific fields), recency markers per external claim, mandatory `[[wikilinks]]` for every person/project/concept referenced, sources preserved verbatim with URLs inline, and confidence levels where applicable. The vault is for future-Claude retrieval - not human reading.
+**AI-first rule:** Every note created or updated by this command MUST follow `references/ai-first-rules.md` - `## For future agents` preamble, rich frontmatter (`type`, `date`, `tags`, `ai-first: true`, plus type-specific fields), recency markers per external claim, mandatory `[[wikilinks]]` for every person/project/concept referenced, sources preserved verbatim with URLs inline, and confidence levels where applicable. The vault is for agent retrieval - not human reading.
 
 **Anti-fabrication:** Describe only what the scan and the code actually show - never invent a module, a dependency, a data flow, or a decision that is not grounded in the manifest or the source. If the scan is thin (small project, no manifest), say so and keep the notes short rather than padding. Mark inferred rationale and personas as `confidence: speculation`. See the anti-fabrication and search-completeness hard rules in `references/ai-first-rules.md`.

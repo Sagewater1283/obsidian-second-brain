@@ -21,6 +21,6 @@ A focused, topic-driven cross-reference of the existing vault. Unlike `/obsidian
 
 ---
 
-**AI-first rule:** Every note created or updated by this command MUST follow `references/ai-first-rules.md` - `## For future Claude` preamble, rich frontmatter (`type`, `date`, `tags`, `ai-first: true`, plus type-specific fields), recency markers per external claim, mandatory `[[wikilinks]]` for every person/project/concept referenced, sources preserved verbatim with URLs inline, and confidence levels where applicable. The vault is for future-Claude retrieval - not human reading.
+**AI-first rule:** Every note created or updated by this command MUST follow `references/ai-first-rules.md` - `## For future agents` preamble, rich frontmatter (`type`, `date`, `tags`, `ai-first: true`, plus type-specific fields), recency markers per external claim, mandatory `[[wikilinks]]` for every person/project/concept referenced, sources preserved verbatim with URLs inline, and confidence levels where applicable. The vault is for agent retrieval - not human reading.
 
 **Anti-fabrication:** Enumerate the matching notes exhaustively, do not sample - a partial scan reported as complete produces confident wrong answers. Never invent a claim, contradiction, or source; if the vault is thin on the topic, say so. See the anti-fabrication and search-completeness hard rules in `references/ai-first-rules.md`.

@@ -30,7 +30,7 @@ from .lib import grok, video_frames, vault, youtube
 # Claude reads, so cost scales with count. Override with --max-frames.
 DEFAULT_VISUAL_MAX_FRAMES = 24
 
-SUMMARIZE_PROMPT = """You are summarizing a YouTube video for a knowledge vault. The note will be read by future-Claude (an AI), not by a human. Optimize for AI retrieval.
+SUMMARIZE_PROMPT = """You are summarizing a YouTube video for a knowledge vault. The note will be read by future agents, not by a human. Optimize for AI retrieval.
 
 VIDEO TITLE: {title}
 CHANNEL: {channel}
@@ -65,7 +65,7 @@ Produce EXACTLY this structure (markdown):
 - [Specific things mentioned that would be worth a deeper /research call later]
 
 Rules:
-- Be specific. "Talks about AI" is useless to future-Claude. "Argues that LLM context windows over 1M tokens degrade reasoning quality after 200k tokens" is useful.
+- Be specific. "Talks about AI" is useless to future agents. "Argues that LLM context windows over 1M tokens degrade reasoning quality after 200k tokens" is useful.
 - Don't pad. If a section is genuinely thin, write one bullet and move on.
 - Don't add commentary outside this structure.
 """
@@ -200,7 +200,7 @@ def main(argv: list[str]) -> int:
     # AI-first save
     now = datetime.now()
     preamble = (
-        f"For future Claude: This note is a transcript-grounded summary of YouTube video \"{title}\" "
+        f"For future agents: This note is a transcript-grounded summary of YouTube video \"{title}\" "
         f"by {channel} (published {published}), processed on {now.strftime('%Y-%m-%d %H:%M')}. "
         f"Transcript was extracted via youtube-transcript-api and summarized via Grok. "
         f"Quotes are sourced from the transcript verbatim where attributed. Use Worth Following Up On bullets to spawn deeper research."
@@ -231,7 +231,7 @@ def main(argv: list[str]) -> int:
         "ai-first": True,
     }
     note_body = (
-        f"## For future Claude\n\n{preamble}\n\n"
+        f"## For future agents\n\n{preamble}\n\n"
         f"## Video\n\n"
         f"- **Title:** {title}\n"
         f"- **Channel:** {channel}\n"

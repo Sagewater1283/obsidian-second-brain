@@ -17,7 +17,7 @@ import sys
 from datetime import datetime
 from .lib import grok, podcast, vault
 
-SUMMARIZE_PROMPT = """You are summarizing a podcast episode for a knowledge vault. The note will be read by future-Claude (an AI), not by a human. Optimize for AI retrieval.
+SUMMARIZE_PROMPT = """You are summarizing a podcast episode for a knowledge vault. The note will be read by future agents, not by a human. Optimize for AI retrieval.
 
 SHOW: {show}
 HOST: {host}
@@ -53,11 +53,11 @@ Produce EXACTLY this structure (markdown):
 - [Specific things mentioned that would be worth a deeper /research call later]
 
 Rules:
-- Be specific. "Talks about AI" is useless to future-Claude. "Argues that LLM context windows over 1M tokens degrade reasoning quality after 200k tokens" is useful.
+- Be specific. "Talks about AI" is useless to future agents. "Argues that LLM context windows over 1M tokens degrade reasoning quality after 200k tokens" is useful.
 - Don't pad. If a section is genuinely thin, write one bullet and move on.
 - Don't invent quotes. If TRANSCRIPT SOURCE is "show-notes" you have no transcript - leave Notable Quotes empty.
 - Don't add commentary outside this structure.
-- **Wikilinks are mandatory.** Wrap every named person, company, project, product, book, and named concept in `[[Name]]` so future-Claude can traverse the vault graph. Examples: `[[Sam Altman]]`, `[[OpenAI]]`, `[[GPT-5]]`, `[[Attention Is All You Need]]`. This applies in every section - TL;DR, Key Points, Notable Quotes (the speaker attribution), Themes, Guests & People Mentioned, Worth Following Up On.
+- **Wikilinks are mandatory.** Wrap every named person, company, project, product, book, and named concept in `[[Name]]` so future agents can traverse the vault graph. Examples: `[[Sam Altman]]`, `[[OpenAI]]`, `[[GPT-5]]`, `[[Attention Is All You Need]]`. This applies in every section - TL;DR, Key Points, Notable Quotes (the speaker attribution), Themes, Guests & People Mentioned, Worth Following Up On.
 """
 
 
@@ -186,7 +186,7 @@ def main(argv: list[str]) -> int:
     # AI-first save
     now = datetime.now()
     preamble = (
-        f"For future Claude: This note is a {transcript_source}-grounded summary of podcast episode "
+        f"For future agents: This note is a {transcript_source}-grounded summary of podcast episode "
         f"\"{title}\" from {show} ({host}, published {published}), processed on "
         f"{now.strftime('%Y-%m-%d %H:%M')}. Summarized via Grok. "
         f"Source label '{transcript_source}' indicates transcript provenance: "
@@ -215,7 +215,7 @@ def main(argv: list[str]) -> int:
     show_link = f"[[{show}]]" if show and show != "(unknown show)" else show
     host_link = f"[[{host}]]" if host and host != "(unknown)" else host
     note_body = (
-        f"## For future Claude\n\n{preamble}\n\n"
+        f"## For future agents\n\n{preamble}\n\n"
         f"## Episode\n\n"
         f"- **Show:** {show_link}\n"
         f"- **Host:** {host_link}\n"

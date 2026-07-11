@@ -61,7 +61,7 @@ load only when a skill is selected (progressive disclosure).
    via \`/skills\`, or let Codex select it implicitly from its description.
    You do not need a routing table here; the skill list is the router.
 3. Treat the AI-first vault rule (\`.codex/references/ai-first-rules.md\`) as
-   non-negotiable for every note you write: \`## For future Claude\` preamble,
+   non-negotiable for every note you write: \`## For future agents\` preamble,
    rich frontmatter (\`type\`, \`date\`, \`tags\`, \`ai-first: true\`),
    \`[[wikilinks]]\` for every person/project/concept, recency markers per
    external claim, sources verbatim, confidence levels where applicable.

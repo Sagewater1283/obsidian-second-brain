@@ -300,7 +300,7 @@ def test_health_excludes_codex_support_directories(tmp_path):
     )
     (tmp_path / "Home.md").write_text(
         "---\ndate: 2026-07-10\ntype: home\ntags: [home]\nai-first: true\n---\n"
-        "## For future Claude\nThis is the test vault home.\n\n"
+        "## For future agents\nThis is the test vault home.\n\n"
         "# Home\n\nUse [[Templates/Daily Note]].\n",
         encoding="utf-8",
     )
@@ -559,7 +559,7 @@ def test_mcp_vault_ops_update_note_guarded_edit(tmp_path, monkeypatch):
     note = vault / "Project Alpha.md"
     note.write_text(
         "---\ntype: project\nstatus: active\ntags:\n  - work\nai-first: true\n---\n\n"
-        "## For future Claude\nAlpha.\n",
+        "## For future agents\nAlpha.\n",
         encoding="utf-8",
     )
 
@@ -590,7 +590,7 @@ def test_mcp_vault_ops_validate_and_backlinks_and_health(tmp_path, monkeypatch):
     monkeypatch.setenv("OBSIDIAN_VAULT_PATH", str(vault))
     (vault / "Home.md").write_text(
         "---\ntype: note\ndate: 2026-06-27\ntags:\n  - x\nai-first: true\n---\n\n"
-        "## For future Claude\nSee [[Project Alpha]] and [[Ghost Note]].\n",
+        "## For future agents\nSee [[Project Alpha]] and [[Ghost Note]].\n",
         encoding="utf-8",
     )
     (vault / "Project Alpha.md").write_text(

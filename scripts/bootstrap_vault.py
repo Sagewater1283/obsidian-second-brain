@@ -9,7 +9,7 @@ and a _CLAUDE.md so Claude can operate the vault from day one.
 AI-first rule: every template emitted by this script must produce
 notes that pass `hooks/validate-ai-first.sh`. That means the template
 frontmatter must include `date:`, `type:`, `tags:`, and `ai-first: true`,
-and the body must include a `## For future Claude` preamble. See
+and the body must include a `## For future agents` preamble. See
 `references/ai-first-rules.md` for the full spec. When adding a new
 template here, follow the existing shape.
 
@@ -524,7 +524,7 @@ energy:
 
 # <% tp.date.now("YYYY-MM-DD") %> - <% tp.date.now("dddd") %>
 
-## For future Claude
+## For future agents
 
 Daily note for this date. Captures what was worked on, who was met, decisions made, energy, and the day's intention. Pull this when reconstructing what happened on a given day.
 
@@ -592,7 +592,7 @@ job:
 
 # <% tp.file.title %>
 
-## For future Claude
+## For future agents
 
 Project note. Captures overview, architecture, key decisions, and related tasks. Pull this when reasoning about the project's direction, prior decisions, or current scope.
 
@@ -644,7 +644,7 @@ location:
 
 # <% tp.file.title %>
 
-## For future Claude
+## For future agents
 
 Person note. Captures role, company, relationship context, what they care about, and how to help each other. Pull this before any interaction with this person or when reasoning about who knows what.
 
@@ -687,7 +687,7 @@ due:
 
 # <% tp.file.title %>
 
-## For future Claude
+## For future agents
 
 Task note. Captures requirements, implementation notes, and what was delivered. Pull this when reconstructing why a piece of work was done or what was actually shipped vs requested.
 
@@ -714,7 +714,7 @@ job:
 
 # Dev Log - <% tp.date.now("YYYY-MM-DD") %>
 
-## For future Claude
+## For future agents
 
 Engineering log for this date. Captures what was worked on, problems solved, decisions made, and next steps. Pull this when reconstructing the chain of technical decisions on a project.
 
@@ -749,7 +749,7 @@ target_date: {YEAR}-12-31
 
 # <% tp.file.title %>
 
-## For future Claude
+## For future agents
 
 Goal note. Captures why this goal matters, success criteria, milestones, and progress. Pull this when assessing whether work being proposed actually moves toward a stated goal.
 
@@ -778,7 +778,7 @@ context:
 
 # <% tp.file.title %>
 
-## For future Claude
+## For future agents
 
 Mention note. Captures a moment when someone recognized work publicly (Slack, email, meeting, LinkedIn). Pull these to surface social proof, track recurring advocates, or reconstruct who said what about a project.
 
@@ -875,7 +875,7 @@ duration:
 
 # <% tp.file.title %>
 
-## For future Claude
+## For future agents
 
 Meeting note. Captures attendees, agenda, decisions, action items, and free-form notes. Pull this when reconstructing what was decided in a meeting or what commitments were made.
 
@@ -901,7 +901,7 @@ context:
 
 # ADR - <% tp.file.title %>
 
-## For future Claude
+## For future agents
 
 Decision record (ADR). Captures the context, options considered, the decision, and its consequences. Pull this when a similar decision comes up again, or when reconstructing why the system is shaped the way it is.
 
@@ -926,7 +926,7 @@ progress: 0
 
 # <% tp.file.title %>
 
-## For future Claude
+## For future agents
 
 OKR note. Captures the objective, key results, and progress over the quarter. Pull this when reasoning about whether current work is aligned to a stated objective.
 
@@ -953,7 +953,7 @@ project:
 
 # <% tp.file.title %>
 
-## For future Claude
+## For future agents
 
 Architecture note. Captures the problem, constraints, design, tradeoffs, and open questions. Pull this when extending a system, debating a refactor, or onboarding to a component.
 
@@ -979,7 +979,7 @@ status: investigating
 
 # Bug - <% tp.file.title %>
 
-## For future Claude
+## For future agents
 
 Bug investigation note. Captures the symptom, repro steps, investigation trail, root cause, and fix. Pull this when a similar symptom comes up again or when reasoning about why a fix was shaped a certain way.
 
@@ -1009,7 +1009,7 @@ hook:
 
 # <% tp.file.title %>
 
-## For future Claude
+## For future agents
 
 Content post note. Captures the hook, body, CTA, and platform variants for a piece of public-facing content. Pull this to reconstruct what was published, where it went, and which hooks worked.
 
@@ -1032,7 +1032,7 @@ segment:
 
 # <% tp.file.title %>
 
-## For future Claude
+## For future agents
 
 Audience segment note. Captures who they are, what they want, what they read, and the hooks that work for them. Pull this before drafting content aimed at this segment.
 
@@ -1061,7 +1061,7 @@ url:
 
 # <% tp.file.title %>
 
-## For future Claude
+## For future agents
 
 Source note (book, paper, podcast, video, article). Captures citation, abstract or summary, and raw notes. `source_kind` distinguishes the form (book/paper/podcast/etc.). Pull this when reasoning about what's been read on a topic.
 
@@ -1082,7 +1082,7 @@ source:
 
 # <% tp.file.title %>
 
-## For future Claude
+## For future agents
 
 Literature note. Distillation of one source's key claims, methodology, critique, and connections to other ideas. Pull this when reasoning about what one specific source argues, separate from the broader landscape.
 
@@ -1109,7 +1109,7 @@ confidence: medium
 
 # <% tp.file.title %>
 
-## For future Claude
+## For future agents
 
 Hypothesis note. Captures a testable statement, predictions, evidence for and against, and a verdict. Pull this when reasoning about open questions or when new evidence arrives that could update an open hypothesis.
 

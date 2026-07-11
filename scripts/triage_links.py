@@ -107,7 +107,7 @@ def apply_verdicts(vault, verdicts, create_cap):
                 today = date.today().isoformat()
                 stub.write_text(
                     f"---\ntype: stub\ndate: {today}\ntags: [stub]\nai-first: true\n---\n\n"
-                    f"## For future Claude\n\nStub created by link triage on {today}. "
+                    f"## For future agents\n\nStub created by link triage on {today}. "
                     f"`{link}` was referenced across the vault but had no note. "
                     f"Classify it (person, project, concept, decision, etc.), fill it from "
                     f"context, set the real `type:`, and move it to the matching folder when "
